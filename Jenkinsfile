@@ -7,10 +7,8 @@ pipeline {
         BITBUCKET_COMMON_CREDS = credentials('jenkins-amirkhan-common-creds')
     }
     stages {
-        stage('Example') {
-            environment { 
-                DEBUG_FLAGS = '-g'
-            }
+        stage('checkout') {
+            checkout([$class: 'GitSCM', branches: [[name: 'https://github.com/jenkinstesting0123/jenkins/tree/Dev/code']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/jenkinstesting0123/jenkins.git']]])
             steps {
                 sh 'python test.py'
             }
