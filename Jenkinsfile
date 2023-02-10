@@ -7,11 +7,18 @@ pipeline {
         BITBUCKET_COMMON_CREDS = credentials('jenkins-amirkhan-common-creds')
     }
     stages {
-        stage('checkout') {
-            checkout([$class: 'GitSCM', branches: [[name: 'https://github.com/jenkinstesting0123/jenkins/tree/Dev/code']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/jenkinstesting0123/jenkins.git']]])
+        stage('Checkout') {
             steps {
-                sh 'python test.py'
-            }
+              checkout([$class: 'GitSCM', 
+                branches: [[name: '*/Dev']],
+                extensions: [
+                    [$class: 'SparseCheckoutPaths', 
+                    sparseCheckoutPaths:[[$class:'SparseCheckoutPath', path:'/code']]]
+                    ],
+                userRemoteConfigs: [[url: 'https://github.com/jenkinstesting0123/jenkins.git']]])
+              sh "ls -ltr"
+              sh "python test.py"
+          }
         }
     }
 }
