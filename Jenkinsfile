@@ -16,8 +16,10 @@ pipeline {
                     sparseCheckoutPaths:[[$class:'SparseCheckoutPath', path:'/code']]]
                     ],
                 userRemoteConfigs: [[url: 'https://github.com/jenkinstesting0123/jenkins.git']]])
-              sh "ls -ltr"
-              sh "python test.py"
+                sh "ls -ltr"
+                sh 'cd code'
+                sh "ls -ltr" 
+                sh 'python code/test.py'
           }
         }
     }
