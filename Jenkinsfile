@@ -10,6 +10,7 @@ pipeline {
             }
             steps {
                 sh 'printenv'
+                sh 'python test.py'
             }
         }
     }
